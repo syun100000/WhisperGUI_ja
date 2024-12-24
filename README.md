@@ -2,91 +2,83 @@
 
 ![pic](https://user-images.githubusercontent.com/106337749/221340883-4b437d03-97fc-42ee-821e-dd04096323fe.png)
 
-> 此專案是我用2個小時簡單製作的WhisperGUI+快速安裝包，可以讓我們在使用Whisper時快速操作，無須打指令，以及讓懶得手動裝一堆東西的人可以快速的使用(Python以及FFmpeg還是要自己裝)。
+> このプロジェクトは、私が2時間で簡単に作成したWhisperGUI+クイックインストールパッケージです。これにより、Whisperを使用する際に迅速に操作でき、コマンドを入力する必要がなく、手動で多くのものをインストールするのが面倒な人々が迅速に使用できるようになります（PythonおよびFFmpegは自分でインストールする必要があります）。
 
-> 2023.03.30更新 日前有人回報無法抓到GPU的問題，目前推測可能跟CUDA Toolkit有關，若未安裝CUDA Toolkit的人，可嘗試先安裝Nvidia CUDA Toolkit。若已安裝卻還是無法顯示GPU，可嘗試調整Bat檔中的第22行，將安裝的Torch CUDA版本改為與電腦的CUDA Toolkit版本相同。
+> 2023.03.30更新 最近、GPUを検出できないという報告がありました。現在、CUDA Toolkitに関連している可能性があると推測しています。CUDA Toolkitをインストールしていない場合は、まずNvidia CUDA Toolkitをインストールしてみてください。インストールしてもGPUが表示されない場合は、Batファイルの22行目を調整し、インストールされているTorch CUDAバージョンをコンピュータのCUDA Toolkitバージョンと一致させてみてください。
 
-> 2023.08.12更新 目前我有測試打包這個專案成執行檔，不用跑setup.bat創虛擬環境，直接下載下來解壓縮，執行裡面的**main.exe**就可以執行了，大家可以到releases裡下載下來試試看。(打包版經測試無須手動安裝CUDA Toolkit)
+> 2023.08.12更新 現在、このプロジェクトを実行ファイルにパッケージ化するテストを行っています。setup.batを実行して仮想環境を作成する必要はなく、ダウンロードして解凍し、**main.exe**を実行するだけで実行できます。リリースページからダウンロードして試してみてください。（パッケージ版は、手動でCUDA Toolkitをインストールする必要はありません）
 
 [OpenAI Whisper](https://github.com/openai/whisper)
 
-## 專案用途
+## プロジェクトの目的
 
-此專案的作用
+このプロジェクトの目的は、Whisperの実行環境を迅速に設定できるようにすることです。
 
-在於方便大家可以快速設定好的Whisper執行環境
+また、多くのユーザーがこのGUIインターフェースを通じて操作できるようにし、コマンドを入力する必要がないようにすることです。
 
-以及讓多數使用者
+## 機能
 
-可以僅需透過此GUI介面操作使用
+現在、以下のWhisperの機能をサポートしています。
+1. 複数の音声ファイルを選択
+1. 出力場所を選択
+1. 使用モデルを選択
+1. 認識言語を選択
+1. 使用デバイスを選択（CPU、指定されたGPU）
+1. 字幕を英語に翻訳
 
-而無須打指令
+## 画面
 
-
-## 功能
-
-目前支援操作以下幾種Whisper的功能
-1. 選擇多個音檔
-1. 選擇輸出位置
-1. 選擇使用模型
-1. 選擇辨識語言
-1. 選擇使用裝置(CPU、指定顯卡)
-1. 將字幕翻為英文
-
-
-## 畫面
-
-> 操作示意 選擇檔案>選擇跑模型的裝置>執行完成
+> 操作例：ファイルを選択 > モデルを選択 > 実行完了
 
 ![選模型](https://user-images.githubusercontent.com/106337749/218459288-0fd24ee4-4ed6-49c9-a3f4-1fd97976a89d.png)
-![選裝置](https://user-images.githubusercontent.com/106337749/218459323-faaf2d8d-0a68-4bfc-a6e3-62e45b94ad0f.png)
+![選装置](https://user-images.githubusercontent.com/106337749/218459323-faaf2d8d-0a68-4bfc-a6e3-62e45b94ad0f.png)
 ![執行完成](https://user-images.githubusercontent.com/106337749/218460468-a801fe68-0f01-479d-a4bd-4f04eea1af41.png)
 
-## 安裝
+## インストール
 
-> 請先自行安裝Python 3.7以上版本，以及FFmpeg
+> まず、Python 3.7以上のバージョンとFFmpegをインストールしてください。
 
-以下將會引導你如何在你的電腦上執行此專案。
+以下は、このプロジェクトをコンピュータで実行する方法を説明します。
 
-### 取得專案
+### プロジェクトの取得
 
 ```bash
 git clone git@github.com/ADT109119/WhisperGUI.git
 ```
 
-**或是直接在GitHub頁面點Download ZIP**
+**または、GitHubページで「Download ZIP」をクリックしてください。**
 
-### 確認電腦已有Pyhton以及FFmpeg
+### PythonおよびFFmpegがインストールされていることを確認
 
 ```bash
 python --version
 ffmpeg -version
 ```
 
-### 執行setup.bat
+### setup.batを実行
 
-請直接執行資料夾中的setup.bat，等待虛擬環境完成設置
+フォルダ内のsetup.batを実行し、仮想環境のセットアップが完了するのを待ちます。
 
-### 執行專案
+### プロジェクトを実行
 
-請直接執行資料夾中的run.bat，若無報錯，將可以看到GUI介面
+フォルダ内のrun.batを実行してください。エラーがなければ、GUIインターフェースが表示されます。
 
-## 資料夾說明
+## フォルダの説明
 
-- model - 模型存放處
-- output - 預設輸出資料夾
-- venv - 虛擬環境資料夾
+- model - モデルの保存場所
+- output - デフォルトの出力フォルダ
+- venv - 仮想環境フォルダ
 ...
 
-## 專案技術
+## プロジェクト技術
 
 - Python
 - tkinter
 - ttkbootstrap
 
-## 聯絡作者
+## 作者に連絡
 
-你可以透過以下方式與我聯絡
+以下の方法で私に連絡できます
 
 - [Email: 2.jerry32262686@gmail.com](mailto:2.jerry32262686@gmail.com)
 ...

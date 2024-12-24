@@ -26,7 +26,7 @@ def callback(url):
 
 
 def selectPhotoFolder():
-    outputDir = easygui.diropenbox("字幕存放資料夾")
+    outputDir = easygui.diropenbox("字幕保存フォルダ")
     output_dir.delete(0, 'end')
     output_dir.insert(0, outputDir)
     config["outputDir"] = outputDir
@@ -36,7 +36,7 @@ def selectPhotoFolder():
 
 
 def selectAudioFile():
-    paths = filedialog.askopenfilenames()
+    paths = filedialog.askopenfilenames(title="音声ファイルを選択")
     for path in paths:
         displayAudioFilePath.insert(END, path)
     # File = easygui.fileopenbox("選擇音檔檔案")
@@ -113,7 +113,7 @@ def start_process():
 def process():
     # File = displayAudioFilePath.get(0)
     if displayAudioFilePath.size() == 0:
-        messagebox.showerror(title="錯誤", message='未選擇音檔')
+        messagebox.showerror(title="エラー", message='音声ファイルが選択されていません')
         return 0
 
     start = time.time()
@@ -127,7 +127,7 @@ def process():
 
         languageInput = usingLanguage.get()
 
-        if languageInput != "自動偵測":
+        if languageInput != "自動検出":
             commandStr = commandStr + " --language %s "%languageInput
 
         deviceInput = deviceDecode()
@@ -165,7 +165,7 @@ def process():
 
     end = time.time()
 
-    messagebox.showinfo(title="訊息", message="處理完成\n花費時間%.2f秒"%(end-start))
+    messagebox.showinfo(title="情報", message="処理が完了しました\n所要時間%.2f秒"%(end-start))
     processButton["state"] = "normal"
     saveConfig("prompt", initial_prompt.get())
     #outputPreviewVar.set(out)
@@ -200,18 +200,18 @@ window.title('WhisperGUI By The Walking Fish')
 window.geometry('580x330')
 window.resizable(False, False)
 
-label1 = tk.Label(text='選擇音檔')
+label1 = tk.Label(text='音声ファイルを選択')
 label1.place(x=0, y=10)
 displayAudioFilePath = tk.Listbox(width=60, height=5)
 displayAudioFilePath.place(x=80, y=10)
-selectAudioFileButton = ttk.Button(text='＋添加', command=selectAudioFile)
+selectAudioFileButton = ttk.Button(text='＋追加', command=selectAudioFile)
 selectAudioFileButton.place(x=510, y=20)
-selectAudioFileButton = ttk.Button(text='－刪除', bootstyle='danger', command=lambda x=displayAudioFilePath: x.delete("active"))
+selectAudioFileButton = ttk.Button(text='－削除', bootstyle='danger', command=lambda x=displayAudioFilePath: x.delete("active"))
 selectAudioFileButton.place(x=510, y=50)
 
 
 
-label2 = tk.Label(text='字幕存放資料夾')
+label2 = tk.Label(text='字幕保存フォルダ')
 label2.place(x=0, y=30+heightFix_1)
 output_dir = tk.Entry(width=55)
 output_dir.place(x=120, y=30+heightFix_1)
@@ -220,11 +220,11 @@ selectPhotoPathButton = tk.Button(text='....', command=selectPhotoFolder)
 selectPhotoPathButton.place(x=500, y=30+heightFix_1)
 
 outputToTheSamePathAsInputVar = tk.StringVar()
-outputToTheSamePathAsInput = tk.Checkbutton(text="檔案輸出到與個別輸入檔案相同位置", variable=outputToTheSamePathAsInputVar, onvalue="1", offvalue="0")
+outputToTheSamePathAsInput = tk.Checkbutton(text="ファイルを個別の入力ファイルと同じ場所に出力", variable=outputToTheSamePathAsInputVar, onvalue="1", offvalue="0")
 outputToTheSamePathAsInput.deselect()
 outputToTheSamePathAsInput.place(x=300, y=60+heightFix_1)
 
-label_usingModel = tk.Label(text='使用模型')
+label_usingModel = tk.Label(text='使用モデル')
 label_usingModel.place(x=0, y=60+heightFix_1)
 var = tk.StringVar()
 var.trace("w", modelChange)
@@ -234,7 +234,7 @@ usingModel['value'] = models
 usingModel.current(config["usingModel"])
 usingModel.place(x=60, y=60+heightFix_1)
 
-label_usingDevice = tk.Label(text='使用裝置')
+label_usingDevice = tk.Label(text='使用デバイス')
 label_usingDevice.place(x=0, y=90+heightFix_1)
 deviceVar = tk.StringVar()
 deviceVar.trace("w", deviceChange)
@@ -245,7 +245,7 @@ detectAvailableDevice()
 usingDevice.current(config["usingDevice"])
 usingDevice.place(x=60, y=90+heightFix_1)
 
-label_language = tk.Label(text='辨識語言')
+label_language = tk.Label(text='認識言語')
 label_language.place(x=0, y=120+heightFix_1)
 languageVar = tk.StringVar()
 languageVar.trace_add("write", languageChange)
@@ -256,11 +256,11 @@ usingLanguage.current(config["transcribeLanguage"])
 usingLanguage.place(x=60, y=120+heightFix_1)
 
 translateToEnglishVar = tk.StringVar()
-translateToEnglish = tk.Checkbutton(text="將輸出字幕翻譯為英文", variable=translateToEnglishVar, onvalue="1", offvalue="0")
+translateToEnglish = tk.Checkbutton(text="出力字幕を英語に翻訳", variable=translateToEnglishVar, onvalue="1", offvalue="0")
 translateToEnglish.deselect()
 translateToEnglish.place(x=0, y=150+heightFix_1)
 
-initial_prompt_label = tk.Label(text='內容提示詞')
+initial_prompt_label = tk.Label(text='内容のプロンプト')
 initial_prompt_label.place(x=0, y=180+heightFix_1)
 initial_prompt_var = tk.StringVar(value=config.get("prompt"))
 initial_prompt = tk.Entry(width=55, textvariable=initial_prompt_var)
@@ -269,11 +269,11 @@ initial_prompt.place(x=80, y=180+heightFix_1)
 
 label_copyright = tk.Label(text='MIT License')
 label_copyright.place(x=0, y=210+heightFix_1)
-label_author = tk.Label(text='製作: The Walking Fish')
+label_author = tk.Label(text='製作者: The Walking Fish')
 label_author.bind("<Button-1>", lambda e: callback("https://www.youtube.com/@the_walking_fish"))
 label_author.place(x=0, y=230+heightFix_1)
 
-processButton = tk.Button(text='執行', width=20, command=start_process)
+processButton = tk.Button(text='実行', width=20, command=start_process)
 processButton.place(anchor='center', x=290, y=240+heightFix_1)
 
 # menu
@@ -282,9 +282,9 @@ settingMenu = tk.Menu(menu)
 autoCheckVar = tk.BooleanVar()
 autoCheckVar.trace_add("write", lambda index, value, op: saveConfig("autoCheckVersion", autoCheckVar.get()))
 autoCheckVar.set(config["autoCheckVersion"])
-settingMenu.add_checkbutton(label="自動檢查版本", variable=autoCheckVar)
+settingMenu.add_checkbutton(label="自動バージョンチェック", variable=autoCheckVar)
 settingMenu.add_separator()
-settingMenu.add_command(label="檢查版本", command=lambda: versionCheck(1))
+settingMenu.add_command(label="バージョンチェック", command=lambda: versionCheck(1))
 menu.add_cascade(label="setting", menu=settingMenu)
 window.config(menu=menu)
 
