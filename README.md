@@ -43,7 +43,7 @@
 ### プロジェクトの取得
 
 ```bash
-git clone git@github.com/ADT109119/WhisperGUI.git
+git clone git@github.com:syun100000/WhisperGUI_ja.git
 ```
 
 **または、GitHubページで「Download ZIP」をクリックしてください。**
